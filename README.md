@@ -1,6 +1,6 @@
-Projet : Gestion d’un Catalogue de Produits Cosmétiques
-Table des Matières
-Introduction
+# Projet : Gestion d’un Catalogue de Produits Cosmétique
+## Table des Matières
+### Introduction
 Fonctionnalités principales
 Architecture et technologies utilisées
 Design Patterns intégrés
