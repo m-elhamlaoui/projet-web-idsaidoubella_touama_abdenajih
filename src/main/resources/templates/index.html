@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeCatalog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333;">
+    <!-- En-tête -->
+    <header style="background-color: #2c3e50; color: #fff; padding: 1.5rem 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div class="logo">
+                <a href="/" style="color: #fff; text-decoration: none; font-size: 1.75rem; font-weight: 600; letter-spacing: 1px;">Catalogue de Cosmétiques</a>
+            </div>
+            <div class="nav-links">
+                <a href="/" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-home"></i> Accueil</a>
+                <a href="/products" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-store"></i> Produits</a>
+                <a href="/cart" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-shopping-cart"></i> Panier</a>
+                <a href="/change-language" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-globe"></i> Langue</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section de bienvenue -->
+    <section class="hero" style="background-image: url('/images/cos1.jpg'); background-size: cover; background-position: center; padding: 5rem 2rem; text-align: center; color: #fff; position: relative;">
+        <!-- Overlay pour assombrir l'image de fond -->
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);"></div>
+        <div class="hero-content" style="position: relative; z-index: 1;">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; color: #fff;">Découvrez Votre Beauté</h2>
+            <p style="font-size: 1.5rem; color: #fff;">Des cosmétiques de luxe pour l'individu moderne.</p>
+        </div>
+    </section>
+
+    <!-- Section des produits en vedette -->
+    <section class="featured-products" style="padding: 3rem 2rem; text-align: center; max-width: 1200px; margin: 0 auto;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">Produits en Vedette</h2>
+        <div class="products" th:if="${not #lists.isEmpty(products)}" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+            <div class="product-card" th:each="product : ${products}" style="background-color: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 1.5rem; width: 280px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <img th:src="@{/images/{image}(image=${product.imageUrl})}" alt="Product Image" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="font-size: 1.4rem; margin: 1rem 0 0.75rem; color: #2c3e50;" th:text="${product.name}">Nom du produit</h3>
+                <p style="font-size: 1rem; margin: 0.5rem 0; color: #666;" th:text="${product.description}">Description du produit</p>
+                <p class="price" style="font-size: 1.4rem; font-weight: bold; color: #3498db; margin: 1rem 0;" th:text="${'€' + product.price}">Prix</p>
+                <a th:href="@{/product/{id}(id=${product.id})}" class="button" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; background-color: #3498db; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1rem; font-weight: 500;">Voir les détails</a>
+                <form th:action="@{/add-to-cart/{id}(id=${product.id})}" method="post">
+                    <button type="submit" class="button" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; background-color: #3498db; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1rem; font-weight: 500;">
+                        <i class="fas fa-cart-plus"></i> Ajouter au panier
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(products)}">
+            <p style="font-size: 1.2rem; color: #666;">Aucun produit disponible pour le moment.</p>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer style="background-color: #2c3e50; color: #fff; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <p style="margin: 0; font-size: 1rem;">&copy; 2025 Catalogue de Produits Cosmétiques. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

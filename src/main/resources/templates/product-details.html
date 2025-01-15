@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du produit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333;">
+    <!-- En-tête -->
+    <header style="background-color: #2c3e50; color: #fff; padding: 1.5rem 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <nav style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div class="logo">
+                <a href="/" style="color: #fff; text-decoration: none; font-size: 1.75rem; font-weight: 600; letter-spacing: 1px;">Catalogue de Cosmétiques</a>
+            </div>
+            <div class="nav-links">
+                <a href="/" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-home"></i> Accueil</a>
+                <a href="/products" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-store"></i> Produits</a>
+                <a href="/cart" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-shopping-cart"></i> Panier</a>
+                <a href="/change-language" style="color: #fff; text-decoration: none; margin-left: 2rem; font-size: 1rem; font-weight: 500;"><i class="fas fa-globe"></i> Langue</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Section des détails du produit -->
+    <div class="product-details-container" style="padding: 3rem 2rem; text-align: center; max-width: 1200px; margin: 0 auto;">
+        <div class="product-details" style="background-color: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 2.5rem; max-width: 800px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <img th:src="@{/images/{image}(image=${product.imageUrl})}" alt="Product Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 2rem;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 1.5rem; color: #2c3e50;" th:text="${product.name}">Radiant Glow Serum</h2>
+            <p style="font-size: 1.1rem; margin: 0.75rem 0; color: #666;" th:text="${product.description}">A lightweight serum that brightens and hydrates your skin.</p>
+            <p class="price" style="font-size: 1.8rem; font-weight: bold; color: #3498db; margin: 1.5rem 0;" th:text="${'€' + product.price}">€49.99</p>
+            <p class="category" style="font-size: 1.1rem; color: #888; margin-bottom: 2rem;" th:text="${'Catégorie : ' + product.category}">Catégorie : Skincare</p>
+
+            <!-- Bouton "Ajouter au panier" -->
+            <form th:action="@{/add-to-cart/{id}(id=${product.id})}" method="post">
+                <button type="submit" class="button" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; background-color: #3498db; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1rem; font-weight: 500;">
+                    <i class="fas fa-cart-plus"></i> Ajouter au panier
+                </button>
+            </form>
+
+            <!-- Informations supplémentaires -->
+            <div class="additional-info" style="text-align: left; margin-top: 2.5rem;">
+                <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: #2c3e50;">Informations supplémentaires</h3>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="margin: 1rem 0; font-size: 1.1rem; color: #666;"><strong>Necessaire:</strong> <span>The Body Dalton</span></li>
+                    <li style="margin: 1rem 0; font-size: 1.1rem; color: #666;"><strong>Limulsion Corps:</strong> <span>Diametrica</span></li>
+                </ul>
+            </div>
+
+            <!-- Bouton "Retour à la liste" -->
+            <a href="/products" class="button" style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; background-color: #3498db; color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; font-size: 1rem; font-weight: 500;">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <footer style="background-color: #2c3e50; color: #fff; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <p style="margin: 0; font-size: 1rem;">&copy; 2025 Catalogue de Produits Cosmétiques. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

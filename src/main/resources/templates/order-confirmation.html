@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de commande</title>
+    <header style="background-color: #2c3e50; color: #fff; padding: 1.5rem 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    
+    <nav style="display: flex; justify-content: center; gap: 2rem; padding: 1rem 0;">
+            <a href="/" style="color: #fff; text-decoration: none; font-size: 1rem; font-weight: 500;">Accueil</a>
+            <a href="/products" style="color: #fff; text-decoration: none; font-size: 1rem; font-weight: 500;">Produits</a>
+        </nav>
+    </header>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem auto;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .product-card h3 {
+            font-size: 1.4rem;
+            margin: 1rem 0 0.75rem;
+            color: #2c3e50;
+        }
+        .product-card p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            color: #666;
+        }
+        .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 2rem 0;
+        }
+        .message {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: #2c3e50; color: #fff; padding: 1.5rem 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <h1 style="text-align: center; font-size: 2.5rem; margin: 0;">Confirmation de commande</h1>
+    </header>
+
+    <div class="container">
+        <h2>Résumé de votre commande</h2>
+        <div th:if="${not empty cartItems}" th:each="item : ${cartItems}">
+            <div class="product-card">
+                <img th:src="@{/images/{image}(image=${item.product.imageUrl})}" alt="Product Image">
+                <h3 th:text="${item.product.name}">Nom du produit</h3>
+                <p th:text="${item.quantity + ' x €' + item.product.price}">Quantité x Prix</p>
+            </div>
+        </div>
+        <p class="total" th:text="${'Total : €' + total}">Total</p>
+        <p class="message">Votre commande est en cours de traitement. Le livreur vous contactera bientôt. Vérifiez vos messages WhatsApp.</p>
+    </div>
+
+    <footer style="background-color: #2c3e50; color: #fff; text-align: center; padding: 2rem 0; margin-top: 3rem;">
+        <p style="margin: 0; font-size: 1rem;">&copy; 2025 Catalogue de Produits Cosmétiques. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
